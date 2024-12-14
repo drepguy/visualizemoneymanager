@@ -60,7 +60,7 @@ if __name__ == '__main__':
         # Sum for main category
         if entry.category not in category_sums:
             category_sums[entry.category] = {'income': 0, 'outcome': 0}
-        if entry.inOrOutcome == 'income':
+        if entry.inOrOutcome == 'Einkommen':
             category_sums[entry.category]['income'] += entry.eur
         else:
             category_sums[entry.category]['outcome'] += entry.eur
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         # Sum for subcategory
         if entry.subcategory not in subcategory_sums:
             subcategory_sums[entry.subcategory] = {'income': 0, 'outcome': 0, 'category': entry.category}
-        if entry.inOrOutcome == 'income':
+        if entry.inOrOutcome == 'Einkommen':
             subcategory_sums[entry.subcategory]['income'] += entry.eur
         else:
             subcategory_sums[entry.subcategory]['outcome'] += entry.eur
