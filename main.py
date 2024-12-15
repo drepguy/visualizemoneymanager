@@ -11,7 +11,7 @@ from SankeyStringCreater import generate_sankey_string, appendSettingsToString
 if __name__ == '__main__':
 
     # define a filepath to the MoneyManager export file
-    file_path = "C:/tmp/test/01-01-23_31-12-23.xls"
+    file_path = "C:/tmp/test/01-01-24_31-12-24.xls"
 
     # Check if the file exists
     if not os.path.exists(file_path):
@@ -55,14 +55,6 @@ if __name__ == '__main__':
                 new_category_name = f"Income {category}"
                 category_sums[new_category_name] = category_sums.pop(category)
                 break
-
-    # divide all category_sums and subcategory_sums by 12
-    #for sums in category_sums.values():
-    #    sums['income'] /= 12
-    #    sums['outcome'] /= 12
-    #for sums in subcategory_sums.values():
-    #    sums['income'] /= 12
-    #    sums['outcome'] /= 12
 
     sankey_string = generate_sankey_string(category_sums, subcategory_sums)
     sankey_string = appendSettingsToString(sankey_string)

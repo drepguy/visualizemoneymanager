@@ -71,56 +71,55 @@ def generate_sankey_string(category_sums, subcategory_sums):
 def appendSettingsToString(sankeystring):
     return sankeystring + '\r\n' +  """
 // === Settings ===
-        
 size w 900
-h 1400
+  h 1400
 margin l 12
-r 12
-t 18
-b 20
+  r 14
+  t 18
+  b 20
 bg color #ffffff
-transparent N
+  transparent N
 node w 12
-h 19.5
-spacing 75
-border 0
-theme a
-color #888888
-opacity 1
+  h 19.5
+  spacing 75
+  border 0
+  theme a
+  color #888888
+  opacity 1
 flow curvature 0.5
-inheritfrom outside-in
-color #999999
-opacity 0.45
+  inheritfrom outside-in
+  color #999999
+  opacity 0.45
 layout order automatic
-justifyorigins N
-justifyends Y
-reversegraph N
-attachincompletesto nearest
+  justifyorigins N
+  justifyends Y
+  reversegraph N
+  attachincompletesto nearest
 labels color #000000
-hide N
-highlight 0
-fontface sans-serif
-linespacing 0.25
-relativesize 100
-magnify 100
+  hide N
+  highlight 0
+  fontface sans-serif
+  linespacing 0.25
+  relativesize 100
+  magnify 100
 labelname appears Y
-size 9.5
-weight 400
+  size 9.5
+  weight 400
 labelvalue appears Y
-fullprecision Y
-position after
-weight 400
+  fullprecision Y
+  position after
+  weight 400
 labelposition autoalign -1
-scheme auto
-first before
-breakpoint 5
+  scheme auto
+  first before
+  breakpoint 5
 value format ',.'
-prefix ''
-suffix ''
+  prefix ''
+  suffix ''
 themeoffset a 9
-b 0
-c 0
-d 0
+  b 0
+  c 0
+  d 0
 meta mentionsankeymatic Y
-listimbalances Y
+  listimbalances Y
 """
