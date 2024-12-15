@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 import pyperclip
 
 from MoneyMangerExportParser import parse_moneymanager_export, print_entries
-from SankeyStringCreater import generate_sankey_string
-
+from SankeyStringCreater import generate_sankey_string, appendSettingsToString
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -66,6 +65,7 @@ if __name__ == '__main__':
     #    sums['outcome'] /= 12
 
     sankey_string = generate_sankey_string(category_sums, subcategory_sums)
+    sankey_string = appendSettingsToString(sankey_string)
     print(sankey_string)
 
     # put sankey_string into clipboard
