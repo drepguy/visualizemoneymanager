@@ -2,20 +2,10 @@
 import os
 import sys
 import matplotlib.pyplot as plt
+import pyperclip
 
 from MoneyMangerExportParser import parse_moneymanager_export, print_entries
 from SankeyStringCreater import generate_sankey_string
-
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-def print_bye(message):
-    print(f'Bye, {message}')
 
 
 # Press the green button in the gutter to run the script.
@@ -61,26 +51,25 @@ if __name__ == '__main__':
     # Check and rename categories if needed
     for category in list(category_sums.keys()):
         # Rename income main category if it contains any subcategory string
-        for (subcategory, categorys) in subcategory_sums.keys():
+        for (subcategory, _) in subcategory_sums.keys():
             if subcategory in category and category_sums[category]['income'] > 0:
                 new_category_name = f"Income {category}"
                 category_sums[new_category_name] = category_sums.pop(category)
                 break
 
-    sonstiges_count = 1
-
-    # Rename "Sonstiges" subcategories to unique names
-    for subcategory in list(subcategory_sums.keys()):
-        if subcategory == "Sonstiges" or subcategory == "Sonstige":
-            new_subcategory_name = f"Sonstiges{sonstiges_count}"
-            subcategory_sums[new_subcategory_name] = subcategory_sums.pop(subcategory)
-            sonstiges_count += 1
-
-
+    # divide all category_sums and subcategory_sums by 12
+    #for sums in category_sums.values():
+    #    sums['income'] /= 12
+    #    sums['outcome'] /= 12
+    #for sums in subcategory_sums.values():
+    #    sums['income'] /= 12
+    #    sums['outcome'] /= 12
 
     sankey_string = generate_sankey_string(category_sums, subcategory_sums)
     print(sankey_string)
 
-
+    # put sankey_string into clipboard
+    pyperclip.copy(sankey_string)
+    print("Sankey string copied to clipboard")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
