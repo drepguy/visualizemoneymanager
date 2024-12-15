@@ -20,9 +20,6 @@ def print_bye(message):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-    print_bye('PyCharm')
-    print('This is a sample Python script.')
 
     # define a filepath to the MoneyManager export file
     file_path = "C:/tmp/test/01-01-23_31-12-23.xls"
@@ -37,20 +34,6 @@ if __name__ == '__main__':
 
     # define another filepath to the MoneyManager export file
     print_entries(entries)
-
-    # now we want to print a bar diagram of the expenses and incomes
-    expenses = []
-    incomes = []
-    for entry in entries:
-        if entry.inOrOutcome == "Ausgabe":
-            expenses.append(entry.amount)
-        else:
-            incomes.append(entry.amount)
-
-    plt.bar(["Expenses", "Incomes"], [sum(expenses), sum(incomes)])
-
-    # now we want to show the bar diagram
-    plt.show()
 
     # Initialize dictionaries to store sums
     category_sums = {}
@@ -68,109 +51,32 @@ if __name__ == '__main__':
 
         # Sum for subcategory
         if entry.subcategory:
-            if entry.subcategory not in subcategory_sums:
-                subcategory_sums[entry.subcategory] = {'income': 0, 'outcome': 0, 'category': entry.category}
+            if (entry.subcategory, entry.category) not in subcategory_sums:
+                subcategory_sums[(entry.subcategory, entry.category)] = {'income': 0, 'outcome': 0, 'category': entry.category}
             if entry.inOrOutcome == 'Einkommen':
-                subcategory_sums[entry.subcategory]['income'] += entry.eur
+                subcategory_sums[(entry.subcategory, entry.category)]['income'] += entry.eur
             else:
-                subcategory_sums[entry.subcategory]['outcome'] += entry.eur
-
-    # Print the results
-    print("Category Sums:")
-    for category, sums in category_sums.items():
-        print(f"{category}: Income = {sums['income']}, Outcome = {sums['outcome']}")
-
-    print("\nSubcategory Sums:")
-    for subcategory, sums in subcategory_sums.items():
-        print(f"\t{subcategory} (Category: {sums['category']}): Income = {sums['income']}, Outcome = {sums['outcome']}")
-
-    # Prepare data for the bar diagram
-    categories = []
-    incomes = []
-    outcomes = []
-
-    for category, sums in category_sums.items():
-        categories.append(category)
-        incomes.append(sums['income'])
-        outcomes.append(sums['outcome'])
-
-    # Plot the bar diagram for categories
-    x = range(len(categories))
-    bar_width = 0.4
-    plt.bar(x, incomes, width=bar_width, label='Income', align='center')
-    plt.bar(x, outcomes, width=bar_width, label='Outcome', align='edge')
-
-    # Add labels and title
-    plt.xlabel('Categories')
-    plt.ylabel('Amount in EUR')
-    plt.title('Income and Outcome by Category')
-    plt.xticks(x, categories, rotation='vertical')
-    plt.legend()
-
-    # Show the bar diagram
-    plt.tight_layout()
-    plt.show()
-
-    # Prepare data for the bar diagram for subcategories
-    subcategories = []
-    sub_incomes = []
-    sub_outcomes = []
-
-    for subcategory, sums in subcategory_sums.items():
-        subcategories.append(f"{sums['category']} - {subcategory}")
-        sub_incomes.append(sums['income'])
-        sub_outcomes.append(sums['outcome'])
-
-    # Sort the subcategories by main category
-    sorted_subcategories = sorted(zip(subcategories, sub_incomes, sub_outcomes), key=lambda x: x[0].split(' - ')[0])
-    subcategories, sub_incomes, sub_outcomes = zip(*sorted_subcategories)
-
-    # Plot the bar diagram for subcategories
-    x = range(len(subcategories))
-    bar_width = 0.4
-
-    plt.figure(figsize=(14, 10))  # Increase the figure size
-    income_bars = plt.bar(x, sub_incomes, width=bar_width, label='Income', align='center')
-    outcome_bars = plt.bar(x, sub_outcomes, width=bar_width, label='Outcome', align='center')
-
-    # Add labels and title
-    plt.xlabel('Subcategories')
-    plt.ylabel('Amount in EUR')
-    plt.title('Income and Outcome by Subcategory')
-    plt.xticks(x, subcategories, rotation='vertical', fontsize=8)
-    plt.legend()
-
-    # Scale the y-axis logarithmically
-    plt.yscale('log')
-
-    # Adjust the y-axis limits to avoid cutting off the top values
-    max_height = max(max(sub_incomes), max(sub_outcomes))
-
-    # Add exact values on top of the bars
-    for bar in income_bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2.0, height, f'{int(height)}', ha='center', va='bottom',
-                 rotation='vertical')
-
-    for bar in outcome_bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2.0, height, f'{int(height)}', ha='center', va='bottom',
-                 rotation='vertical')
-
-    # Adjust the bottom margin to fit long descriptions
-    plt.gcf().subplots_adjust(bottom=0.5)
-
-    # Show the bar diagram
-    # plt.tight_layout()
-    plt.show()
+                subcategory_sums[(entry.subcategory, entry.category)]['outcome'] += entry.eur
 
     # Check and rename categories if needed
     for category in list(category_sums.keys()):
-        for subcategory in subcategory_sums.keys():
+        # Rename income main category if it contains any subcategory string
+        for (subcategory, categorys) in subcategory_sums.keys():
             if subcategory in category and category_sums[category]['income'] > 0:
                 new_category_name = f"Income {category}"
                 category_sums[new_category_name] = category_sums.pop(category)
                 break
+
+    sonstiges_count = 1
+
+    # Rename "Sonstiges" subcategories to unique names
+    for subcategory in list(subcategory_sums.keys()):
+        if subcategory == "Sonstiges" or subcategory == "Sonstige":
+            new_subcategory_name = f"Sonstiges{sonstiges_count}"
+            subcategory_sums[new_subcategory_name] = subcategory_sums.pop(subcategory)
+            sonstiges_count += 1
+
+
 
     sankey_string = generate_sankey_string(category_sums, subcategory_sums)
     print(sankey_string)
