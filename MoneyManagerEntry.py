@@ -13,14 +13,14 @@
 # - Konto
 
 class MoneyManagerEntry:
-    def __init__(self, date, account, category, subcategory, note, eur, inOrOutcome, description, amount, currency, konto):
+    def __init__(self, date, account, category, subcategory, note, eur, in_or_outcome, description, amount, currency, konto):
         self.date = date
         self.account = account
         self.category = category
         self.subcategory = subcategory
         self.note = note
         self.eur = eur
-        self.inOrOutcome = inOrOutcome
+        self.in_or_outcome = in_or_outcome
         self.description = description
         self.amount = amount
         self.currency = currency
@@ -29,7 +29,7 @@ class MoneyManagerEntry:
     def __str__(self):
         return "Date: " + str(self.date) + ", Account: " + str(self.account) + ", Category: " + str(
             self.category) + ", Subcategory: " + str(self.subcategory) + ", Note: " + str(self.note) + ", EUR: " + str(
-            self.eur) + ", Type: " + str(self.inOrOutcome) + ", Description: " + str(self.description) + ", Amount: " + str(
+            self.eur) + ", Type: " + str(self.in_or_outcome) + ", Description: " + str(self.description) + ", Amount: " + str(
             self.amount) + ", Currency: " + str(self.currency) + ", Konto: " + str(self.konto)
 
     def __repr__(self):
@@ -42,13 +42,13 @@ class MoneyManagerEntry:
                 self.subcategory == other.subcategory and
                 self.note == other.note and
                 self.eur == other.eur and
-                self.inOrOutcome == other.inOrOutcome and
+                self.in_or_outcome == other.in_or_outcome and
                 self.description == other.description and
                 self.amount == other.amount and
                 self.currency == other.currency and
                 self.konto == other.konto)
 
     def __hash__(self):
-        return hash(self.date + self.account + self.category + self.subcategory + self.note + self.eur + self.inOrOutcome + self.description + self.amount + self.currency + self.konto)
+        return hash(self.date + self.account + self.category + self.subcategory + self.note + self.eur + self.in_or_outcome + self.description + self.amount + self.currency + self.konto)
 
 

@@ -5,7 +5,7 @@ def calculate_sums(entries):
     for entry in entries:
         if entry.category not in category_sums:
             category_sums[entry.category] = {'income': 0, 'outcome': 0}
-        if entry.inOrOutcome == 'Einkommen':
+        if entry.in_or_outcome == 'Einkommen':
             category_sums[entry.category]['income'] += entry.eur
         else:
             category_sums[entry.category]['outcome'] += entry.eur
@@ -13,7 +13,7 @@ def calculate_sums(entries):
         if entry.subcategory:
             if (entry.subcategory, entry.category) not in subcategory_sums:
                 subcategory_sums[(entry.subcategory, entry.category)] = {'income': 0, 'outcome': 0, 'category': entry.category}
-            if entry.inOrOutcome == 'Einkommen':
+            if entry.in_or_outcome == 'Einkommen':
                 subcategory_sums[(entry.subcategory, entry.category)]['income'] += entry.eur
             else:
                 subcategory_sums[(entry.subcategory, entry.category)]['outcome'] += entry.eur

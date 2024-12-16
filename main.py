@@ -6,7 +6,7 @@ import pyperclip
 from config import FILE_PATH
 
 from MoneyMangerExportParser import parse_moneymanager_export, print_entries
-from SankeyStringCreater import generate_sankey_string, appendSettingsToString
+from SankeyStringCreater import generate_sankey_string, append_settings_to_string
 from calculations import calculate_sums
 
 
@@ -24,7 +24,7 @@ def main():
     category_sums, subcategory_sums = calculate_sums(entries)
 
     sankey_string = generate_sankey_string(category_sums, subcategory_sums)
-    sankey_string = appendSettingsToString(sankey_string)
+    sankey_string = append_settings_to_string(sankey_string)
     logging.info(sankey_string)
 
     pyperclip.copy(sankey_string)

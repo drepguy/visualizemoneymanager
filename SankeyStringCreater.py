@@ -2,6 +2,8 @@
 
 # create a function to create the sankey string
 def generate_sankey_string(category_sums, subcategory_sums):
+
+    # divide by 12 to get monthly values
     for sums in category_sums.values():
         sums['income'] /= 12
         sums['outcome'] /= 12
@@ -9,31 +11,31 @@ def generate_sankey_string(category_sums, subcategory_sums):
         sums['income'] /= 12
         sums['outcome'] /= 12
 
+    # create a list to store the sankey string
     sankeystring = []
 
+    #
     for category, sums in category_sums.items():
         if sums['income'] > 0:
             sankeystring.append(f"{category} [{round(sums['income'], 2)}] Budget")
-
-    for subcategory, sums in subcategory_sums.items():
-        if sums['income'] > 0:
-            sankeystring.append(f"{subcategory[0]} [{round(sums['income'], 2)}] {sums['category']}")
-        if sums['outcome'] > 0:
-            sankeystring.append(f"{sums['category']} [{round(sums['outcome'], 2)}] {subcategory[0]}:{subcategory[1]}")
-
-    for category, sums in category_sums.items():
         if sums['outcome'] > 0:
             sankeystring.append(f"Budget [{round(sums['outcome'], 2)}] {category}")
 
-    sumincome = sum([sums['income'] for sums in category_sums.values()])
-    sumoutcome = sum([sums['outcome'] for sums in category_sums.values()])
+    for subcategory, sums in subcategory_sums.items():
+        if sums['income'] > 0:
+            sankeystring.append(f"{subcategory[0]}:{subcategory[1]} [{round(sums['income'], 2)}] {sums['category']}")
+        if sums['outcome'] > 0:
+            sankeystring.append(f"{sums['category']} [{round(sums['outcome'], 2)}] {subcategory[0]}:{subcategory[1]}")
 
-    print("Budget: ", max(sumincome, sumoutcome))
+    sum_income = sum([sums['income'] for sums in category_sums.values()])
+    sum_outcome = sum([sums['outcome'] for sums in category_sums.values()])
 
-    if sumincome > sumoutcome:
-        sankeystring.append(f"Budget [{round(sumincome-sumoutcome,2)}] Übertrag")
+    print("Budget: ", max(sum_income, sum_outcome))
+
+    if sum_income > sum_outcome:
+        sankeystring.append(f"Budget [{round(sum_income-sum_outcome,2)}] Übertrag")
     else:
-        sankeystring.append(f"Übertrag [{round(sumoutcome-sumincome,2)}] Budget")
+        sankeystring.append(f"Übertrag [{round(sum_outcome-sum_income,2)}] Budget")
 
     # handling for empty subcategories
     for category, category_sum in category_sums.items():
@@ -57,7 +59,8 @@ def generate_sankey_string(category_sums, subcategory_sums):
 
     return "\n".join(sankeystring)
 
-def appendSettingsToString(sankeystring):
+# noinspection SpellCheckingInspection
+def append_settings_to_string(sankeystring):
     return sankeystring + '\r\n' +  """
 // === Settings ===
 size w 900

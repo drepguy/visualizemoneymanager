@@ -35,14 +35,14 @@ def parse_moneymanager_export(file_path):
         subcategory = sheet.cell_value(i, 3)
         note = sheet.cell_value(i, 4)
         eur = sheet.cell_value(i, 5)
-        type = sheet.cell_value(i, 6)
+        in_or_outcome = sheet.cell_value(i, 6)
         description = sheet.cell_value(i, 7)
         amount = sheet.cell_value(i, 8)
         currency = sheet.cell_value(i, 9)
         konto = sheet.cell_value(i, 10)
 
         # create a MoneyManagerEntry object and add it to the list
-        entry = MoneyManagerEntry(date, account, category, subcategory, note, eur, type, description, amount, currency,
+        entry = MoneyManagerEntry(date, account, category, subcategory, note, eur, in_or_outcome, description, amount, currency,
                                   konto)
         entries.append(entry)
 
