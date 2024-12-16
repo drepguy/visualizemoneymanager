@@ -14,6 +14,9 @@ logging.basicConfig(level=logging.INFO)
 
 def main():
 
+    # log python version
+    logging.info(f"Python version: {sys.version}")
+
     # check if the file exists
     if not os.path.exists(FILE_PATH):
         # if the file does not exist, log an error and exit the program

@@ -1,17 +1,18 @@
 # this files containing functions to create the sankey string
 
 import logging
+from config import DIVIDE_AMOUNTS_BY, MIDDLE_NODE_NAME, REMAINING_AMOUNT_NAME, SANKEY_CHART_SETTINGS
 
 # create a function to create the sankey string
 def generate_sankey_string(category_sums, subcategory_sums):
 
-    # divide by 12 to get monthly values
+    # divide by DIVIDE_AMOUNTS_BY to get monthly/yearly values
     for sums in category_sums.values():
-        sums['income'] /= 12
-        sums['outcome'] /= 12
+        sums['income'] /= DIVIDE_AMOUNTS_BY
+        sums['outcome'] /= DIVIDE_AMOUNTS_BY
     for sums in subcategory_sums.values():
-        sums['income'] /= 12
-        sums['outcome'] /= 12
+        sums['income'] /= DIVIDE_AMOUNTS_BY
+        sums['outcome'] /= DIVIDE_AMOUNTS_BY
 
     # create a list to store the sankey string
     sankeystring = []
@@ -20,9 +21,9 @@ def generate_sankey_string(category_sums, subcategory_sums):
     # iterate through all categories_sums
     for category, sums in category_sums.items():
         if sums['income'] > 0:
-            sankeystring.append(f"{category} [{round(sums['income'], 2)}] Budget")
+            sankeystring.append(f"{category} [{round(sums['income'], 2)}] {MIDDLE_NODE_NAME}")
         if sums['outcome'] > 0:
-            sankeystring.append(f"Budget [{round(sums['outcome'], 2)}] {category}")
+            sankeystring.append(f"{MIDDLE_NODE_NAME} [{round(sums['outcome'], 2)}] {category}")
 
     # iterate through all subcategories_sums
     for subcategory, sums in subcategory_sums.items():
@@ -35,11 +36,11 @@ def generate_sankey_string(category_sums, subcategory_sums):
     sum_income = sum([sums['income'] for sums in category_sums.values()])
     sum_outcome = sum([sums['outcome'] for sums in category_sums.values()])
 
-    # we need to add a Übertrag to keep sankey diagram balanced (inflow should be equal to outflow)
+    # we need to add a REMAINING_AMOUNT_NAME to keep sankey diagram balanced (inflow should be equal to outflow)
     if sum_income > sum_outcome:
-        sankeystring.append(f"Budget [{round(sum_income-sum_outcome,2)}] Übertrag")
+        sankeystring.append(f"{MIDDLE_NODE_NAME} [{round(sum_income-sum_outcome,2)}] {REMAINING_AMOUNT_NAME}")
     else:
-        sankeystring.append(f"Übertrag [{round(sum_outcome-sum_income,2)}] Budget")
+        sankeystring.append(f"{REMAINING_AMOUNT_NAME} [{round(sum_outcome-sum_income,2)}] {MIDDLE_NODE_NAME}")
 
     # handling for empty subcategories
     # if subcategory is empty, we need to add a Weiteres subcategory to keep sankey diagram balanced, and put the difference there
@@ -57,71 +58,18 @@ def generate_sankey_string(category_sums, subcategory_sums):
             if any(cat == category for (_, cat) in subcategory_sums):
                 # log the difference
                 logging.info(f"Category '{category}' outcome differs by {outcome_diff:.2f} euros")
-                # add the difference to the sankey string (basically create a new subcategory for it called Weiteres)
-                sankeystring.append(f"{category} [{outcome_diff:.2f}] Weiteres:{category}")
+                # add a * to the sankey string (basically create a new subcategory for it called Weiteres) which lets the remaining amount flow out of it
+                sankeystring.append(f"{category} [*] Weiteres:{category}")
 
         if income_diff >= 0.01:
             if any(cat == category for (_, cat) in subcategory_sums):
                 # log the difference
                 logging.info(f"Category '{category}' income differs by {income_diff:.2f} euros")
-                # add the difference to the sankey string (basically create a new subcategory for it called Weiteres)
-                sankeystring.append(f"Weiteres:{category} [{income_diff:.2f}] {category}")
+                # add a ? to the sankey string (basically create a new subcategory for it called Weiteres) which lets the remaining amount flow into it
+                sankeystring.append(f"Weiteres:{category} [?] {category}")
 
     return '\n'.join(sankeystring)
 
 # noinspection SpellCheckingInspection
 def append_settings_to_string(sankeystring):
-    return sankeystring + '\r\n' +  '''
-// === Settings ===
-size w 900
-  h 1400
-margin l 12
-  r 14
-  t 18
-  b 20
-bg color #ffffff
-  transparent N
-node w 12
-  h 19.5
-  spacing 75
-  border 0
-  theme a
-  color #888888
-  opacity 1
-flow curvature 0.5
-  inheritfrom outside-in
-  color #999999
-  opacity 0.45
-layout order automatic
-  justifyorigins N
-  justifyends Y
-  reversegraph N
-  attachincompletesto nearest
-labels color #000000
-  hide N
-  highlight 0
-  fontface sans-serif
-  linespacing 0.25
-  relativesize 100
-  magnify 100
-labelname appears Y
-  size 9.5
-  weight 400
-labelvalue appears Y
-  fullprecision Y
-  position after
-  weight 400
-labelposition autoalign -1
-  scheme auto
-  first before
-  breakpoint 5
-value format ',.'
-  prefix ''
-  suffix ''
-themeoffset a 9
-  b 0
-  c 0
-  d 0
-meta mentionsankeymatic Y
-  listimbalances Y
-'''
+    return sankeystring + '\r\n' +  f'''{SANKEY_CHART_SETTINGS}'''
