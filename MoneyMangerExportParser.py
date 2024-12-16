@@ -14,13 +14,8 @@
 # - Konto
 
 # Since the MoneyManager export file is a xls file, we need to use the xlrd library to read the file
-# The xlrd library is a library to read data and formatting information from Excel files
-# first we need to import the xlrd library
 import xlrd
-
-# next we need to import the MoneyManagerEntry class from MoneyManagerEntry.py
 from MoneyManagerEntry import MoneyManagerEntry
-
 
 # next we need to define a function to parse the MoneyManager export file
 def parse_moneymanager_export(file_path):
