@@ -1,26 +1,23 @@
 # This is a sample Python script.
 import os
 import sys
-import logging
 import pyperclip
 from config import FILE_PATH
 
-from MoneyMangerExportParser import parse_moneymanager_export, print_entries
+from MoneyMangerExportParser import parse_moneymanager_export
 from SankeyStringCreater import generate_sankey_string, append_settings_to_string
 from calculations import calculate_sums
-
-
-logging.basicConfig(level=logging.INFO)
+from logger_setup import logger
 
 def main():
 
     # log python version
-    logging.info(f"Python version: {sys.version}")
+    logger.info(f"Python version: {sys.version}")
 
     # check if the file exists
     if not os.path.exists(FILE_PATH):
         # if the file does not exist, log an error and exit the program
-        logging.error("The file does not exist.")
+        logger.error("The file does not exist.")
         # exit the program with an error code
         sys.exit(1)
 
@@ -28,7 +25,7 @@ def main():
     entries = parse_moneymanager_export(FILE_PATH)
 
     # log all entries with new line in between them
-    logging.info("\n".join([str(entry) for entry in entries]))
+    logger.info("\n".join([str(entry) for entry in entries]))
 
     # calculate the sums for the categories and subcategories
     category_sums, subcategory_sums = calculate_sums(entries)
@@ -40,12 +37,12 @@ def main():
     sankey_string = append_settings_to_string(sankey_string)
 
     # print the sankey string
-    logging.info(sankey_string)
+    logger.info(f'Sankey string: \n{sankey_string}')
 
     # copy the sankey string to the clipboard
     pyperclip.copy(sankey_string)
 
-    logging.info("Sankey string copied to clipboard")
+    logger.info("Sankey string copied to clipboard.")
 
 if __name__ == '__main__':
     main()
