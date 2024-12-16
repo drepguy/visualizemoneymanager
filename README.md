@@ -2,12 +2,24 @@
 
 I use the app money manager to track my expenses. I export the data to an XLS file and use this script
 to visualize the data as a sankey chart. This script will generate a sankey string you can import
-into a sankey chart generator like SankeyMATIC.
+into a sankey chart generator like SankeyMATIC. This script does not support Money Transfers though.
+This is ignored.
 
 * Money Manager in Google Play Store: [Money Manager Expense & Budget](https://play.google.com/store/apps/details?id=com.realbyteapps.moneymanagerfree&hl=en)
 * SankeyMATIC: [http://sankeymatic.com](http://sankeymatic.com/build/)
 
+
+
+<table style="border: none;">
+  <tr>
+    <td><img src="https://play-lh.googleusercontent.com/ikbN8scDWum2l6zGkmBrLFMsxOQvzTZT6UcIAYJ_dxBDAv9Ub7YE640cliaooDiWMzs=w240-h480" alt="Sankey Chart" width="180" height="180" style="border-radius: 10px;"></td>
+    <td><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Arrow_right_font_awesome.svg" alt="Arrow" width="50" height="50"></td>
+    <td><img src="https://sankeymatic.com/gallery/i/1993-thumbnail.png" alt="Sankey Chart2" width="180" height="180" style="border-radius: 10px;"></td>
+  </tr>
+</table>
+
 ## How to set it up
+If you have german app export, there is probably not much for you to do
 
 ### Export Data from App
 * Open the app
@@ -20,7 +32,7 @@ into a sankey chart generator like SankeyMATIC.
 
 ### Configuration
 1. Open the `config.py` file and set the following variables:
-    - `FILE_PATH`: Path to the XLS file.
+    - `FILE_PATH`: Full path to the XLS file.
     - `DIVIDE_AMOUNTS_BY`: Usually set to 12 to calculate monthly expenses.
     - `MIDDLE_NODE_NAME`: Name of the node that will be the middle of the tree.
     - `REMAINING_AMOUNT_NAME`: Name for balancing the whole Sankey diagram.
@@ -28,11 +40,13 @@ into a sankey chart generator like SankeyMATIC.
       - you can find the settings in the [SankeyMATIC Tool](http://sankeymatic.com/build/), after you have generated a chart
       when you click on `Save My Work` on [SankeyMATIC](http://sankeymatic.com/build/). The
       settings are included in the file
+    - TRANSFER_TYPEs: See your excel export file in column G
+
 
 ## How to Run the Script
 
 ### Prerequisites
-
+****
 Make sure you have the following installed on your system:
 - Python 3.10 or higher
 - pip (Python package installer)

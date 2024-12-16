@@ -1,3 +1,5 @@
+from config import TRANSFER_TYPE_INCOME, TRANSFER_TYPE_OUTCOME
+
 def calculate_sums(entries):
     category_sums = {}
     subcategory_sums = {}
@@ -10,10 +12,10 @@ def calculate_sums(entries):
             # if not, add it to the dictionary with initial values of 0
             category_sums[entry.category] = {'income': 0, 'outcome': 0}
         # add the entry's amount to the appropriate category
-        if entry.in_or_outcome == 'Einkommen':
+        if entry.transfer_type == f'{TRANSFER_TYPE_INCOME}':
             # if the entry is an income, add the amount to the income value
             category_sums[entry.category]['income'] += entry.eur
-        else:
+        if entry.transfer_type == f'{TRANSFER_TYPE_OUTCOME}':
             # if the entry is an outcome, add the amount to the outcome value
             category_sums[entry.category]['outcome'] += entry.eur
 
@@ -24,10 +26,10 @@ def calculate_sums(entries):
                 # if not, add it to the dictionary with initial values of 0, also add the parent category, because of same name issues
                 subcategory_sums[(entry.subcategory, entry.category)] = {'income': 0, 'outcome': 0, 'category': entry.category}
             # add the entry's amount to the appropriate subcategory
-            if entry.in_or_outcome == 'Einkommen':
+            if entry.transfer_type == f'{TRANSFER_TYPE_INCOME}':
                 # if the entry is an income, add the amount to the income value
                 subcategory_sums[(entry.subcategory, entry.category)]['income'] += entry.eur
-            else:
+            if entry.transfer_type == f'{TRANSFER_TYPE_OUTCOME}':
                 # if the entry is an outcome, add the amount to the outcome value
                 subcategory_sums[(entry.subcategory, entry.category)]['outcome'] += entry.eur
 

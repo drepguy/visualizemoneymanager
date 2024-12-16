@@ -3,6 +3,10 @@ FILE_PATH = "C:/tmp/test/01-01-24_31-12-24.xls"
 DIVIDE_AMOUNTS_BY = 12
 MIDDLE_NODE_NAME = "Budget"
 REMAINING_AMOUNT_NAME = "Übertrag"
+TRANSFER_TYPE_INCOME = "Einkommen"
+TRANSFER_TYPE_OUTCOME = "Ausgabe"
+TRANSFER_TYPE_TRANSFER_IN = "Eingehender Transfer"
+TRANSFER_TYPE_TRANSFER_OUT = "Ausgehender Transfer"
 
 # noinspection SpellCheckingInspection
 SANKEY_CHART_SETTINGS = """
