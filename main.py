@@ -1,55 +1,50 @@
 # This is a sample Python script.
 import os
 import sys
-import matplotlib.pyplot as plt
+import pyperclip
+from config import FILE_PATH
 
-from MoneyMangerExportParser import parse_moneymanager_export, print_entries
+from MoneyMangerExportParser import parse_moneymanager_export
+from SankeyStringCreater import generate_sankey_string, append_settings_to_string
+from calculations import calculate_sums
+from logger_setup import logger
 
+def main():
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    # log python version
+    logger.info(f"Python version: {sys.version}")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-def print_bye(message):
-    print(f'Bye, {message}')
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-    print_bye('PyCharm')
-    print('This is a sample Python script.')
-
-    # define a filepath to the MoneyManager export file
-    file_path = "C:/tmp/test/01-01-23_31-12-23.xls"
-
-    # Check if the file exists
-    if not os.path.exists(file_path):
-        print("The file does not exist.")
+    # check if the file exists
+    if not os.path.exists(FILE_PATH):
+        # if the file does not exist, log an error and exit the program
+        logger.error("The file does not exist.")
+        # exit the program with an error code
         sys.exit(1)
 
     # parse the MoneyManager export file
-    entries = parse_moneymanager_export(file_path)
+    entries = parse_moneymanager_export(FILE_PATH)
 
-    # define another filepath to the MoneyManager export file
-    print_entries(entries)
+    # log all entries with new line in between them
+    logger.info("\n".join([str(entry) for entry in entries]))
 
-    # now we want to print a bar diagram of the expenses and incomes
-    expenses = []
-    incomes = []
-    for entry in entries:
-        if entry.type == "Ausgabe":
-            expenses.append(entry.amount)
-        else:
-            incomes.append(entry.amount)
+    # calculate the sums for the categories and subcategories
+    category_sums, subcategory_sums = calculate_sums(entries)
 
-    plt.bar(["Expenses", "Incomes"], [sum(expenses), sum(incomes)])
+    # generate the sankey raw string
+    sankey_string = generate_sankey_string(category_sums, subcategory_sums)
 
-    # now we want to show the bar diagram
-    plt.show()
+    # append the settings to the sankey string
+    sankey_string = append_settings_to_string(sankey_string)
 
+    # print the sankey string
+    logger.info(f'Sankey string: \n{sankey_string}')
+
+    # copy the sankey string to the clipboard
+    pyperclip.copy(sankey_string)
+
+    logger.info("Sankey string copied to clipboard.")
+
+if __name__ == '__main__':
+    main()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
