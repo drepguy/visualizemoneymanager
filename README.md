@@ -48,8 +48,7 @@ If you have german app export, there is probably not much for you to do
 ### Prerequisites
 ****
 Make sure you have the following installed on your system:
-- Python 3.10 or higher
-- pip (Python package installer)
+- Python 3.12 or higher: [Download here](https://www.python.org/downloads/release/python-3120/)
 
 ### Installation
 
