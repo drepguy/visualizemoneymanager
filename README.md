@@ -49,9 +49,11 @@ If you have german app export, there is probably not much for you to do, besides
 ### Prerequisites
 ****
 Make sure you have the following installed on your system:
+
 - Python 3.10 or higher
 - pip (Python package installer)
 - make sure 'cdn.jsdelivr.net' is not blocked by your browser, adblocker or dns sink, as the script needs it for the SankeyMATIC creation
+=======
 
 ### Installation
 
