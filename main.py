@@ -2,6 +2,7 @@
 import os
 import sys
 import pyperclip
+from web_driver import try_use_sankeymatic
 from config import FILE_PATH
 
 from sankey_chart import draw_sankey, generate_sankey_data
@@ -48,13 +49,11 @@ def main():
 
     # generate the sankey data
     labels, source, target, value = generate_sankey_data(category_sums, subcategory_sums)
-
     draw_sankey(labels, source, target, value)
 
-    # draw the sankey chart
-    # x and y given as array_like objects
-    # fig = px.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
-    # fig.show(renderer="browser")
+    # try_use_sankeymatic()
+    # try_use_sankeymatic()
+
 
 
 if __name__ == '__main__':
