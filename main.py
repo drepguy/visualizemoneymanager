@@ -51,10 +51,8 @@ def main():
     labels, source, target, value = generate_sankey_data(category_sums, subcategory_sums)
     draw_sankey(labels, source, target, value)
 
-    # try_use_sankeymatic()
-    # try_use_sankeymatic()
-
-
+    # try use sankeymatic
+    try_use_sankeymatic()
 
 if __name__ == '__main__':
     main()
