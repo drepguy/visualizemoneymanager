@@ -1,6 +1,6 @@
 # Visualize Money Manager as Sankey Chart
 
-I use the app money manager to track my expenses. I export the data to an XLS file and use this script to visualize the data as a sankey chart. This script will 
+I use the android app money manager to track my expenses. I export the data to an XLS file and use this script to visualize the data as a sankey chart. This script will 
 * generate a sankey string for sankeyMATIC.com,
 * try to import that string on sankeyMATIC.com/build using selenium and download the chart as a png file, and
 * creates a sankey itself using plotly. 
@@ -41,7 +41,7 @@ If you have german app export, there is probably not much for you to do, besides
       - you can find the settings in the [SankeyMATIC Tool](http://sankeymatic.com/build/), after you have generated a chart
       when you click on `Save My Work` on [SankeyMATIC](http://sankeymatic.com/build/). The
       settings are included in the file
-    - TRANSFER_TYPEs: See your excel export file in column G
+    - `TRANSFER_TYPE`s: See your excel export file in column G, if you don't use german language you should make changes here
 
 
 ## How to Run the Script
