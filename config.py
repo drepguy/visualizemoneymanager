@@ -1,5 +1,5 @@
 # Configuration settings
-FILE_PATH = "C:/tmp/test/01-01-24_31-12-24.xls"
+FILE_PATH = "C:/tmp/test/01-01-24_31-12-24(1).xls"
 DIVIDE_AMOUNTS_BY = 12
 MIDDLE_NODE_NAME = "Budget"
 REMAINING_AMOUNT_NAME = "Übertrag"

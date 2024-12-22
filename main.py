@@ -2,12 +2,15 @@
 import os
 import sys
 import pyperclip
+from web_driver import try_use_sankeymatic
 from config import FILE_PATH
 
+from sankey_chart import draw_sankey, generate_sankey_data
 from MoneyMangerExportParser import parse_moneymanager_export
 from SankeyStringCreater import generate_sankey_string, append_settings_to_string
 from calculations import calculate_sums
 from logger_setup import logger
+
 
 def main():
 
@@ -43,6 +46,13 @@ def main():
     pyperclip.copy(sankey_string)
 
     logger.info("Sankey string copied to clipboard.")
+
+    # generate the sankey data
+    labels, source, target, value = generate_sankey_data(category_sums, subcategory_sums)
+    draw_sankey(labels, source, target, value)
+
+    # try use sankeymatic
+    try_use_sankeymatic()
 
 if __name__ == '__main__':
     main()

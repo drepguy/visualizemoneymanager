@@ -1,14 +1,15 @@
 # Visualize Money Manager as Sankey Chart
 
-I use the app money manager to track my expenses. I export the data to an XLS file and use this script
-to visualize the data as a sankey chart. This script will generate a sankey string you can import
-into a sankey chart generator like SankeyMATIC. This script does not support Money Transfers though.
-This is ignored.
+I use the app money manager to track my expenses. I export the data to an XLS file and use this script to visualize the data as a sankey chart. This script will 
+* generate a sankey string for sankeyMATIC.com,
+* try to import that string on sankeyMATIC.com/build using selenium and download the chart as a png file, and
+* creates a sankey itself using plotly. 
 
+This script does not support Money Transfers though.
+
+See also:
 * Money Manager in Google Play Store: [Money Manager Expense & Budget](https://play.google.com/store/apps/details?id=com.realbyteapps.moneymanagerfree&hl=en)
 * SankeyMATIC: [http://sankeymatic.com](http://sankeymatic.com/build/)
-
-
 
 <table style="border: none;">
   <tr>
@@ -19,9 +20,9 @@ This is ignored.
 </table>
 
 ## How to set it up
-If you have german app export, there is probably not much for you to do
+If you have german app export, there is probably not much for you to do, besides setting the `FILE_PATH` in the `config.py` file.
 
-### Export Data from App
+### Export Data from Money-Manager App
 * Open the app
 * Go to the `More` tab in the bottom right corner
 * Click on `Backup`
@@ -50,6 +51,7 @@ If you have german app export, there is probably not much for you to do
 Make sure you have the following installed on your system:
 - Python 3.10 or higher
 - pip (Python package installer)
+- make sure 'cdn.jsdelivr.net' is not blocked by your browser, adblocker or dns sink, as the script needs it for the SankeyMATIC creation
 
 ### Installation
 
@@ -99,10 +101,10 @@ Make sure you have the following installed on your system:
     - Check if the specified file exists.
     - Parse the MoneyManager export file.
     - Calculate the sums for the categories and subcategories.
-    - Generate the Sankey raw string.
+    - Generate the Sankey raw string and saves it to the clipboard.
     - Append the settings to the Sankey string.
-    - Print the Sankey string.
-    - Copy the Sankey string to the clipboard.
+    - Draws the Sankey chart using Plotly.
+    - Import the Sankey string to the SankeyMATIC website using Selenium and download the chart as a PNG file.
 
 3. Paste the clipboard content into the [SankeyMATIC Tool](http://sankeymatic.com/build/) and generate the chart.
 
