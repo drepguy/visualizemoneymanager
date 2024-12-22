@@ -61,6 +61,8 @@ Make sure you have the following installed on your system:
     git clone <repository-url>
     cd <repository-directory>
     ```
+   
+   or download the zip-file from github and open terminal in this directory
 
 2. Create a virtual environment (optional but recommended):
 
