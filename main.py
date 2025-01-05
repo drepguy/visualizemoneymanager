@@ -48,8 +48,8 @@ def main():
     logger.info("Sankey string copied to clipboard.")
 
     # generate the sankey data
-    labels, source, target, value = generate_sankey_data(category_sums, subcategory_sums)
-    draw_sankey(labels, source, target, value)
+    # labels, source, target, value = generate_sankey_data(category_sums, subcategory_sums)
+    # draw_sankey(labels, source, target, value)
 
     # try use sankeymatic
     try_use_sankeymatic()
