@@ -28,9 +28,9 @@ def generate_sankey_string(category_sums, subcategory_sums):
     # iterate through all subcategories_sums
     for subcategory, sums in subcategory_sums.items():
         if sums['income'] > 0:
-            sankeystring.append(f"{subcategory[0]}:{subcategory[1]} [{round(sums['income'], 2)}] {sums['category']}")
+            sankeystring.append(f"{subcategory[1]}:{subcategory[0]} [{round(sums['income'], 2)}] {sums['category']}")
         if sums['outcome'] > 0:
-            sankeystring.append(f"{sums['category']} [{round(sums['outcome'], 2)}] {subcategory[0]}:{subcategory[1]}")
+            sankeystring.append(f"{sums['category']} [{round(sums['outcome'], 2)}] {subcategory[1]}:{subcategory[0]}")
 
     # add all main categories sums together to get the total income and outcome
     sum_income = sum([sums['income'] for sums in category_sums.values()])
@@ -59,14 +59,14 @@ def generate_sankey_string(category_sums, subcategory_sums):
                 # log the difference
                 logging.info(f"Category '{category}' outcome differs by {outcome_diff:.2f} euros")
                 # add a * to the sankey string (basically create a new subcategory for it called Weiteres) which lets the remaining amount flow out of it
-                sankeystring.append(f"{category} [*] Weiteres:{category}")
+                sankeystring.append(f"{category} [*] {category}:Weiteres")
 
         if income_diff >= 0.01:
             if any(cat == category for (_, cat) in subcategory_sums):
                 # log the difference
                 logging.info(f"Category '{category}' income differs by {income_diff:.2f} euros")
                 # add a ? to the sankey string (basically create a new subcategory for it called Weiteres) which lets the remaining amount flow into it
-                sankeystring.append(f"Weiteres:{category} [?] {category}")
+                sankeystring.append(f"{category}:Weiteres [?] {category}")
 
     return '\n'.join(sankeystring)
 
