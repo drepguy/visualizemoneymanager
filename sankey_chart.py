@@ -43,22 +43,22 @@ def generate_sankey_data(category_sums, subcategory_sums):
     for subcategory, sums in subcategory_sums.items():
         if sums['income'] > 0:
             # sankeystring.append(f"{subcategory[0]}:{subcategory[1]} [{round(sums['income'], 2)}] {sums['category']}")
-            if f"{subcategory[0]}:{subcategory[1]}" not in labels:
-                labels.append(f"{subcategory[0]}:{subcategory[1]}")
+            if f"{subcategory[1]}:{subcategory[0]}" not in labels:
+                labels.append(f"{subcategory[1]}:{subcategory[0]}")
             if subcategory[1] not in labels:
                 labels.append(subcategory[1])
-            source.append(labels.index(f"{subcategory[0]}:{subcategory[1]}"))
+            source.append(labels.index(f"{subcategory[1]}:{subcategory[0]}"))
             target.append(labels.index(sums['category']))
             value.append(round(sums['income'], 2))
 
         if sums['outcome'] > 0:
             # sankeystring.append(f"{sums['category']} [{round(sums['outcome'], 2)}] {subcategory[0]}:{subcategory[1]}")
             if subcategory[0] not in labels:
-                labels.append(f"{subcategory[0]}:{subcategory[1]}")
+                labels.append(f"{subcategory[1]}:{subcategory[0]}")
             if subcategory[1] not in labels:
                 labels.append(subcategory[1])
             source.append(labels.index(sums['category']))
-            target.append(labels.index(f"{subcategory[0]}:{subcategory[1]}"))
+            target.append(labels.index(f"{subcategory[1]}:{subcategory[0]}"))
             value.append(round(sums['outcome'], 2))
 
     # add all main categories sums together to get the total income and outcome
@@ -107,10 +107,10 @@ def generate_sankey_data(category_sums, subcategory_sums):
                 # sankeystring.append(f"{category} [*] Weiteres:{category}")
                 if category not in labels:
                     labels.append(category)
-                if f"Weiteres:{category}" not in labels:
-                    labels.append(f"Weiteres:{category}")
+                if f"{category}:Weiteres" not in labels:
+                    labels.append(f"{category}:Weiteres")
                 source.append(labels.index(category))
-                target.append(labels.index(f"Weiteres:{category}"))
+                target.append(labels.index(f"{category}:Weiteres"))
                 value.append(outcome_diff)
 
         if income_diff >= 0.01:
@@ -121,9 +121,9 @@ def generate_sankey_data(category_sums, subcategory_sums):
                 # sankeystring.append(f"Weiteres:{category} [?] {category}")
                 if category not in labels:
                     labels.append(category)
-                if f"Weiteres:{category}" not in labels:
-                    labels.append(f"Weiteres:{category}")
-                source.append(labels.index(f"Weiteres:{category}"))
+                if f"{category}:Weiteres" not in labels:
+                    labels.append(f"{category}:Weiteres")
+                source.append(labels.index(f"{category}:Weiteres"))
                 target.append(labels.index(category))
                 value.append(income_diff)
 
