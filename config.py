@@ -1,6 +1,6 @@
 # Configuration settings
-FILE_PATH = "C:/tmp/01-01-24_31-12-24(2).xls"
-DIVIDE_AMOUNTS_BY = 12
+FILE_PATH = "C:/tmp/2022.xls"
+DIVIDE_AMOUNTS_BY = 1
 MIDDLE_NODE_NAME = "Budget"
 REMAINING_AMOUNT_NAME = "Übertrag"
 TRANSFER_TYPE_INCOME = "Einkommen"
