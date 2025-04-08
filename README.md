@@ -3,7 +3,9 @@
 I use the android app money manager to track my expenses. I export the data to an XLS file and use this script to visualize the data as a sankey chart. This script will 
 * generate a sankey string for sankeyMATIC.com,
 * try to import that string on sankeyMATIC.com/build using selenium and download the chart as a png file, and
-* creates a sankey itself using plotly. 
+* creates a sankey itself using plotly.
+
+* Click [here](https://github.com/drepguy/visualizemoneymanager) to reach my github repo: [https://github.com/drepguy/visualizemoneymanager](https://github.com/drepguy/visualizemoneymanager)
 
 This script does not support Money Transfers though.
 
