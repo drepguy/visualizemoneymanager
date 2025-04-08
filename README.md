@@ -10,6 +10,7 @@ I use the android app money manager to track my expenses. I export the data to a
 This script does not support Money Transfers though.
 
 See also:
+* the actual repo: [https://github.com/drepguy/visualizemoneymanager](https://github.com/drepguy/visualizemoneymanager)
 * Money Manager in Google Play Store: [Money Manager Expense & Budget](https://play.google.com/store/apps/details?id=com.realbyteapps.moneymanagerfree&hl=en)
 * SankeyMATIC: [http://sankeymatic.com](http://sankeymatic.com/build/)
 
