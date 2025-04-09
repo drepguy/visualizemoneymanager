@@ -5,7 +5,7 @@ I use the android app money manager to track my expenses. I export the data to a
 * try to import that string on sankeyMATIC.com/build using selenium and download the chart as a png file, and
 * creates a sankey itself using plotly.
 
-* Click [here](https://github.com/drepguy/visualizemoneymanager) to reach my github repo: [https://github.com/drepguy/visualizemoneymanager](https://github.com/drepguy/visualizemoneymanager)
+* Click [here](https://github.com/drepguy/visualizemoneymanager) to clone my github repo: [https://github.com/drepguy/visualizemoneymanager](https://github.com/drepguy/visualizemoneymanager)
 
 This script does not support Money Transfers though.
 
